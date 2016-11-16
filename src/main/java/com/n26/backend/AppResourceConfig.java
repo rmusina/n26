@@ -1,13 +1,13 @@
 package com.n26.backend;
 
 
+import com.n26.backend.exceptions.ConstraintValidationExceptionMapper;
 import com.n26.backend.exceptions.GenericExceptionMapper;
 import com.n26.backend.exceptions.WebApplicationExceptionMapper;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.ServerProperties;
 import org.glassfish.jersey.server.validation.ValidationFeature;
-import org.glassfish.jersey.server.validation.internal.ValidationExceptionMapper;
 
 
 class AppResourceConfig extends ResourceConfig {
@@ -16,7 +16,7 @@ class AppResourceConfig extends ResourceConfig {
         register(JacksonFeature.class);
         register(ValidationFeature.class);
 
-        register(ValidationExceptionMapper.class);
+        register(ConstraintValidationExceptionMapper.class);
         register(GenericExceptionMapper.class);
         register(WebApplicationExceptionMapper.class);
 
