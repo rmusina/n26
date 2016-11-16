@@ -1,6 +1,5 @@
 package com.n26.backend;
 
-import java.io.IOException;
 
 public class App {
 
@@ -9,7 +8,7 @@ public class App {
 
         try {
             server.startServer();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

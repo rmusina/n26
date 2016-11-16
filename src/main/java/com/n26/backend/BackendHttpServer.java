@@ -1,29 +1,29 @@
 package com.n26.backend;
 
-import com.sun.net.httpserver.HttpHandler;
-import com.sun.net.httpserver.HttpServer;
 
-import javax.ws.rs.ext.RuntimeDelegate;
+import org.eclipse.jetty.server.Handler;
+import org.eclipse.jetty.server.Server;
+import org.eclipse.jetty.server.handler.HandlerCollection;
+import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import org.glassfish.jersey.servlet.ServletContainer;
 
-import java.io.IOException;
-import java.net.InetSocketAddress;
 
-public class BackendHttpServer {
+class BackendHttpServer {
 
-    public HttpServer startServer() throws IOException {
-        final HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
+    void startServer() throws Exception {
+        ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
+        ServletContainer jerseyServletContainer = new ServletContainer(new AppResourceConfig());
+        ServletHolder jerseyServletHolder = new ServletHolder(jerseyServletContainer);
+        servletContextHandler.setContextPath("/");
+        servletContextHandler.addServlet(jerseyServletHolder, "/*");
 
-        Runtime.getRuntime().addShutdownHook(new Thread(new Runnable() {
-            public void run() {
-                server.stop(0);
-            }
-        }));
+        HandlerCollection handlerList = new HandlerCollection();
+        handlerList.setHandlers(new Handler[]{ servletContextHandler });
 
-        HttpHandler handler = RuntimeDelegate.getInstance().createEndpoint(new JaxRsApplication(), HttpHandler.class);
-
-        server.createContext("127.0.0.1", handler);
+        Server server = new Server(8080);
+        server.setHandler(handlerList);
         server.start();
-
-        return server;
+        server.join();
     }
 }
