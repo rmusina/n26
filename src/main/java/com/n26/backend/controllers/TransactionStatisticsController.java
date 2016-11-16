@@ -6,6 +6,7 @@ import com.n26.backend.model.TransactionRequest;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -24,12 +25,15 @@ public class TransactionStatisticsController {
     @POST
     @Path("/transactions")
     @Consumes(MediaType.APPLICATION_JSON)
-    public Response postTransaction(TransactionRequest transactionRequest) {
-        return Response.noContent().build();
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response postTransaction(@Valid final TransactionRequest transactionRequest) throws Exception {
+        throw new Exception("caca");
+        //return Response.noContent().build();
     }
 
     @GET
     @Path("/statistics")
+    @Produces(MediaType.APPLICATION_JSON)
     public int getStatistics() {
         return this.metricsProvider.getMetric();
     }

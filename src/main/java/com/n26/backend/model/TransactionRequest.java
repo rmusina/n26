@@ -1,26 +1,13 @@
 package com.n26.backend.model;
 
 
+import javax.validation.constraints.Min;
+
 public class TransactionRequest {
-    private long timestamp;
 
-    private double amount;
+    @Min(1)
+    public long timestamp;
 
-    public TransactionRequest() {}
-
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
+    @Min(0)
+    public double amount;
 }
