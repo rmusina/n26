@@ -2,11 +2,13 @@ package com.n26.backend.controllers;
 
 
 import com.n26.backend.metrics.MetricsProvider;
+import com.n26.backend.model.TransactionRequest;
 
 import javax.inject.Inject;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 @Path("/")
@@ -21,7 +23,8 @@ public class TransactionStatisticsController {
 
     @POST
     @Path("/transactions")
-    public Response postTransaction() {
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response postTransaction(TransactionRequest transactionRequest) {
         return Response.noContent().build();
     }
 

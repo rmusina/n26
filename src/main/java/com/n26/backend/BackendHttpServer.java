@@ -21,7 +21,7 @@ class BackendHttpServer {
         HandlerCollection handlerList = new HandlerCollection();
         handlerList.setHandlers(new Handler[]{ servletContextHandler });
 
-        Server server = new Server(8080);
+        Server server = new Server(8082);
         server.setHandler(handlerList);
         server.start();
         server.join();

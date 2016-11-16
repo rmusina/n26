@@ -6,7 +6,7 @@ import com.n26.backend.metrics.MetricsProvider;
 import org.glassfish.hk2.utilities.binding.AbstractBinder;
 
 
-public class AppBinder extends AbstractBinder {
+class AppBinder extends AbstractBinder {
 
     @Override
     protected void configure() {
