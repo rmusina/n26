@@ -13,4 +13,3 @@ public class CircularBucketArrayTests {
     public void whenAddIsCalledForATimeOutOfTheIntervalThenAdditionDoesNotModifyTheArray() {
     }
 }
-

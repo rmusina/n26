@@ -12,11 +12,11 @@ class EmptyStatistics implements Statistics {
     }
 
     public double getMax() {
-        return .0;
+        return Double.NEGATIVE_INFINITY;
     }
 
     public double getMin() {
-        return .0;
+        return Double.POSITIVE_INFINITY;
     }
 
     public int getCount() {

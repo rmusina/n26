@@ -20,9 +20,7 @@ public class EpochTime implements Time {
             return secondsEpoch;
         }
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(millisecondsEpoch);
-        secondsEpoch = calendar.get(Calendar.SECOND);
+        secondsEpoch = millisecondsEpoch/1000L;
 
         return secondsEpoch;
     }

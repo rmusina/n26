@@ -16,7 +16,7 @@ class ImmutableStatisticsAggregator implements StatisticsAggregator {
         return new ImmutableStatistics(
                 statistics1.getCount() + statistics2.getCount(),
                 statistics1.getSum() + statistics2.getSum(),
-                Math.max(statistics1.getMax(), statistics1.getMax()),
-                Math.min(statistics1.getMin(), statistics2.getMax()));
+                Math.max(statistics1.getMax(), statistics2.getMax()),
+                Math.min(statistics1.getMin(), statistics2.getMin()));
     }
 }

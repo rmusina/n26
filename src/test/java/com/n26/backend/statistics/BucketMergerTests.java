@@ -38,10 +38,34 @@ public class BucketMergerTests {
 
     @Test
     public void whenAddingAnInvalidBucketOverAValidBucketThenTheValidBucketIsNotChanged() {
+        Time validTime = new EpochTime(1);
+        Time invalidTime = new EpochTime(2);
+        FixedTimeInterval timeInterval = Mockito.mock(FixedTimeInterval.class);
+        when(timeInterval.isInTimeInterval(validTime)).thenReturn(true);
+        when(timeInterval.isInTimeInterval(invalidTime)).thenReturn(false);
+        BucketMerger merger = new BucketMerger(timeInterval);
+
+        Bucket newBucket = new TimeBasedBucket(invalidTime, new EmptyStatistics());
+        Bucket currentBucket = new TimeBasedBucket(validTime, new EmptyStatistics());
+        Bucket result = merger.apply(currentBucket, newBucket);
+
+        Assert.assertSame(currentBucket, result);
     }
 
     @Test
     public void whenAddingAValidBucketOverAnotherValidBucketThenTheBucketsAreAggregated() {
+        FixedTimeInterval timeInterval = Mockito.mock(FixedTimeInterval.class);
+        when(timeInterval.isInTimeInterval(isA(Time.class))).thenReturn(true);
+        BucketMerger merger = new BucketMerger(timeInterval);
 
+        Bucket newBucket = new TimeBasedBucket(new EpochTime(1), new ImmutableStatistics(10));
+        Bucket currentBucket = new TimeBasedBucket(new EpochTime(1), new ImmutableStatistics(20));
+        Bucket result = merger.apply(currentBucket, newBucket);
+
+        Statistics resultStatistics = result.getBucketStatistics();
+        Assert.assertEquals(30, resultStatistics.getSum(), 0.01);
+        Assert.assertEquals(15, resultStatistics.getAvg(), 0.01);
+        Assert.assertEquals(20, resultStatistics.getMax(), 0.01);
+        Assert.assertEquals(10, resultStatistics.getMin(), 0.01);
     }
 }

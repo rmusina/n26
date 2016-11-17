@@ -12,8 +12,8 @@ public class FixedTimeInterval implements TimeInterval {
     }
 
     public boolean isInTimeInterval(Time time) {
-        long milisecondsEpoch = time.getMilisecondsEpoch();
-        long endTimeMilisecondsEpoch = intervalEndTime.getMilisecondsEpoch();
+        long milisecondsEpoch = time.getRoundedSecondsEpoch();
+        long endTimeMilisecondsEpoch = intervalEndTime.getRoundedSecondsEpoch();
 
         return milisecondsEpoch >= endTimeMilisecondsEpoch - timeInterval &&
                milisecondsEpoch <= endTimeMilisecondsEpoch;
