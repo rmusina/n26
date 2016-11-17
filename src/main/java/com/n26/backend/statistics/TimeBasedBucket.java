@@ -1,29 +1,28 @@
 package com.n26.backend.statistics;
 
 
-public class TimeBasedBucket implements Bucket {
+import com.n26.backend.time.Time;
 
-    private long time;
+class TimeBasedBucket implements Bucket {
 
-    private Statistics statistics;
+    private final Time startTime;
 
-    public TimeBasedBucket(long time, Statistics statistics) {
-        this.time = time;
+    private final Statistics statistics;
+
+    TimeBasedBucket(Time startTime, Statistics statistics) {
+        this.startTime = startTime;
         this.statistics = statistics;
     }
 
-    @Override
-    public long getStartWindow() {
-        return this.time;
+    public Time getStartTime() {
+        return startTime;
     }
 
-    @Override
-    public boolean isInTimeWindow(long time) {
-        return false;
+    public boolean isInTimeWindow(Time time) {
+        return time.getRoundedSecondsEpoch() == startTime.getRoundedSecondsEpoch();
     }
 
-    @Override
     public Statistics getBucketStatistics() {
-        return this.statistics;
+        return statistics;
     }
 }

@@ -7,14 +7,14 @@ class ImmutableStatistics implements Statistics {
     private final double max;
     private final double min;
 
-    public ImmutableStatistics(double sum) {
+    ImmutableStatistics(double sum) {
         this.count = 1;
         this.sum = sum;
         this.max = sum;
         this.min = sum;
     }
 
-    public ImmutableStatistics(int count, double sum, double max, double min) {
+    ImmutableStatistics(int count, double sum, double max, double min) {
         this.count = count;
         this.sum = sum;
         this.max = max;
@@ -39,20 +39,5 @@ class ImmutableStatistics implements Statistics {
 
     public double getMin() {
         return min;
-    }
-
-    @Override
-    public Statistics addValue(double value) {
-        return null;
-    }
-
-    @Override
-    public Statistics addStatistics(Statistics value) {
-        return null;
-    }
-
-    @Override
-    public Statistics reset() {
-        return new EmptyStatistics();
     }
 }

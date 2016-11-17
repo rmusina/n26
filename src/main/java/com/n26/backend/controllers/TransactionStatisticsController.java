@@ -27,7 +27,7 @@ public class TransactionStatisticsController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postTransaction(@Valid final TransactionRequest transactionRequest) {
-        statisticsRepository.registerStatistic(transactionRequest.amount, transactionRequest.timestamp);
+        statisticsRepository.registerStatistics(transactionRequest.amount, transactionRequest.timestamp);
         return Response.noContent().build();
     }
 

@@ -1,8 +1,10 @@
 package com.n26.backend.statistics;
 
 
+import com.n26.backend.time.Time;
+
 interface Bucket {
-    long getStartWindow();
-    boolean isInTimeWindow(long time);
+    Time getStartTime();
+    boolean isInTimeWindow(Time time);
     Statistics getBucketStatistics();
 }

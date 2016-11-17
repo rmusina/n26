@@ -7,8 +7,4 @@ public interface Statistics {
     double getMax();
     double getMin();
     int getCount();
-
-    Statistics addValue(double value);
-    Statistics addStatistics(Statistics value);
-    Statistics reset();
 }
