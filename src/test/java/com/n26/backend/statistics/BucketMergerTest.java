@@ -10,7 +10,7 @@ import org.mockito.Mockito;
 import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
-public class BucketMergerTests {
+public class BucketMergerTest {
     @Test
     public void whenAddingAValidBucketOverAnEmptyBucketThenTheNewBucketReplacesTheEmptyOne() {
         FixedTimeInterval timeInterval = Mockito.mock(FixedTimeInterval.class);

@@ -3,7 +3,7 @@ package com.n26.backend.time;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FixedTimeIntervalTests {
+public class FixedTimeIntervalTest {
 
     @Test
     public void whenTimeIsAtTheEdgeOfTimeIntervalButInsideItThenIsInIntervalReturnsTrue() {
