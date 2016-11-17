@@ -4,14 +4,18 @@ import com.n26.backend.time.EpochTime;
 import com.n26.backend.time.TimeInterval;
 import com.n26.backend.time.TimeIntervalProvider;
 
+import javax.inject.Inject;
+
 public class InMemoryStatisticsRepository implements StatisticsRepository {
 
     private final TimeIntervalProvider timeIntervalProvider;
     private final BucketArray bucketArray;
 
+    @Inject
     public InMemoryStatisticsRepository(TimeIntervalProvider timeIntervalProvider) {
         this.timeIntervalProvider = timeIntervalProvider;
-        this.bucketArray = new CircularBucketArray(60);
+        int bucketCount = timeIntervalProvider.getIntervalDurationSeconds();
+        this.bucketArray = new CircularBucketArray(bucketCount);
     }
 
     public void registerStatistics(double amount, long timestamp) {

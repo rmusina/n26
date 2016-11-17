@@ -18,10 +18,6 @@ class TimeBasedBucket implements Bucket {
         return startTime;
     }
 
-    public boolean isInTimeWindow(Time time) {
-        return time.getRoundedSecondsEpoch() == startTime.getRoundedSecondsEpoch();
-    }
-
     public Statistics getBucketStatistics() {
         return statistics;
     }

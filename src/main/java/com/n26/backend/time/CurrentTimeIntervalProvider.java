@@ -4,7 +4,7 @@ import java.time.Instant;
 
 public class CurrentTimeIntervalProvider implements TimeIntervalProvider {
 
-    private long intervalDurationSeconds;
+    private final long intervalDurationSeconds;
 
     public CurrentTimeIntervalProvider(long intervalDurationSeconds) {
         this.intervalDurationSeconds = intervalDurationSeconds;
@@ -12,5 +12,9 @@ public class CurrentTimeIntervalProvider implements TimeIntervalProvider {
 
     public TimeInterval get() {
         return new FixedTimeInterval(intervalDurationSeconds, new EpochTime(Instant.now().toEpochMilli()));
+    }
+
+    public int getIntervalDurationSeconds() {
+        return (int)intervalDurationSeconds;
     }
 }

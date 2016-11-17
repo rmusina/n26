@@ -14,6 +14,7 @@ public class InMemoryStatisticsAggregatorTest {
     @Test
     public void whenAllBucketsAreInTheCurrentTimeIntervalThenTheyAreAllAggregated() {
         TimeIntervalProvider timeIntervalProvider = Mockito.mock(TimeIntervalProvider.class);
+        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(60);
         when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(60, new EpochTime(91000)));
         StatisticsRepository repository = new InMemoryStatisticsRepository(timeIntervalProvider);
 
@@ -34,6 +35,7 @@ public class InMemoryStatisticsAggregatorTest {
     @Test
     public void whenSomeBucketsAreOutsideOfTheCurrentTimeIntervalThenTheyAreIgnored() {
         TimeIntervalProvider timeIntervalProvider = Mockito.mock(TimeIntervalProvider.class);
+        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(60);
         when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(60, new EpochTime(140000)));
         StatisticsRepository repository = new InMemoryStatisticsRepository(timeIntervalProvider);
 
