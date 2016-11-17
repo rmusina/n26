@@ -1,7 +1,7 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
-public class TransactionsMetricSet implements MetricSet {
+public class TransactionsStatistics implements Statistics {
     private int count = 0;
     private double sum = .0;
     private double max = Double.NEGATIVE_INFINITY;
@@ -32,7 +32,7 @@ public class TransactionsMetricSet implements MetricSet {
         return this.count;
     }
 
-    public MetricSet addValue(double value) {
+    public Statistics addValue(double value) {
         count++;
         sum += value;
         max = Math.max(max, value);
@@ -41,12 +41,12 @@ public class TransactionsMetricSet implements MetricSet {
         return this;
     }
 
-    public MetricSet addMetricSet(MetricSet value) {
+    public Statistics addStatistics(Statistics value) {
         //TODO: add code here
         return null;
     }
 
-    public MetricSet reset() {
+    public Statistics reset() {
         count = 0;
         sum = 0;
         max = Double.NEGATIVE_INFINITY;

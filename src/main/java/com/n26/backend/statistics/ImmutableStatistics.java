@@ -1,20 +1,20 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
-class ImmutableMetricSet implements MetricSet {
+class ImmutableStatistics implements Statistics {
     private final int count;
     private final double sum;
     private final double max;
     private final double min;
 
-    public ImmutableMetricSet(double sum) {
+    public ImmutableStatistics(double sum) {
         this.count = 1;
         this.sum = sum;
         this.max = sum;
         this.min = sum;
     }
 
-    public ImmutableMetricSet(int count, double sum, double max, double min) {
+    public ImmutableStatistics(int count, double sum, double max, double min) {
         this.count = count;
         this.sum = sum;
         this.max = max;
@@ -42,17 +42,17 @@ class ImmutableMetricSet implements MetricSet {
     }
 
     @Override
-    public MetricSet addValue(double value) {
+    public Statistics addValue(double value) {
         return null;
     }
 
     @Override
-    public MetricSet addMetricSet(MetricSet value) {
+    public Statistics addStatistics(Statistics value) {
         return null;
     }
 
     @Override
-    public MetricSet reset() {
-        return new EmptyMetricSet();
+    public Statistics reset() {
+        return new EmptyStatistics();
     }
 }

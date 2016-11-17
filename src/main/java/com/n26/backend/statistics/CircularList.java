@@ -1,4 +1,4 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
 import java.util.ArrayList;

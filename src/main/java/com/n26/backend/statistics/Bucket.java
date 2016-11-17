@@ -1,8 +1,8 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
 interface Bucket {
     long getStartWindow();
     boolean isInTimeWindow(long time);
-    MetricSet getBucketMetrics();
+    Statistics getBucketStatistics();
 }

@@ -1,30 +1,30 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 import java.time.Instant;
 
-public class InMemoryMetricsRepository implements MetricsRepository {
+public class InMemoryStatisticsRepository implements StatisticsRepository {
 
     private int timeInterval;
 
     private BucketArray bucketArray;
 
-    public InMemoryMetricsRepository() {
+    public InMemoryStatisticsRepository() {
         this.timeInterval = 60;
         this.bucketArray = new CircularBucketArray(60);
     }
 
-    public void registerMetric(double amount, long timestamp) {
+    public void registerStatistic(double amount, long timestamp) {
         this.bucketArray.addToBucket(amount, timestamp);
     }
 
-    public MetricSet getStatisticsForInterval() {
+    public Statistics getStatisticsForInterval() {
         long currentTime = Instant.now().toEpochMilli();
-        MetricSet totalSnapshot = new TransactionsMetricSet();
+        Statistics totalSnapshot = new TransactionsStatistics();
 
         for (int i = 0; i < bucketArray.size(); i++) {
             Bucket currentBucket = bucketArray.get(i);
             if (currentBucket.isInTimeWindow(currentTime)) {
-                totalSnapshot.addMetricSet(currentBucket.getBucketMetrics());
+                totalSnapshot.addStatistics(currentBucket.getBucketStatistics());
             }
         }
 

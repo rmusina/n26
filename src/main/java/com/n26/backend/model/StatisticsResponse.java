@@ -1,7 +1,7 @@
 package com.n26.backend.model;
 
 
-import com.n26.backend.metrics.MetricSet;
+import com.n26.backend.statistics.Statistics;
 
 public class StatisticsResponse {
     public double sum;
@@ -10,11 +10,11 @@ public class StatisticsResponse {
     public double min;
     public int count;
 
-    public StatisticsResponse(MetricSet metricSet) {
-        this.sum = metricSet.getSum();
-        this.avg = metricSet.getAvg();
-        this.max = metricSet.getMax();
-        this.min = metricSet.getMin();
-        this.count = metricSet.getCount();
+    public StatisticsResponse(Statistics statistics) {
+        this.sum = statistics.getSum();
+        this.avg = statistics.getAvg();
+        this.max = statistics.getMax();
+        this.min = statistics.getMin();
+        this.count = statistics.getCount();
     }
 }

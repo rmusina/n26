@@ -1,8 +1,8 @@
 package com.n26.backend.controllers;
 
 
-import com.n26.backend.metrics.MetricSet;
-import com.n26.backend.metrics.MetricsRepository;
+import com.n26.backend.statistics.Statistics;
+import com.n26.backend.statistics.StatisticsRepository;
 import com.n26.backend.model.StatisticsResponse;
 import com.n26.backend.model.TransactionRequest;
 
@@ -15,11 +15,11 @@ import javax.ws.rs.core.Response;
 @Path("/")
 public class TransactionStatisticsController {
 
-    private final MetricsRepository metricsRepository;
+    private final StatisticsRepository statisticsRepository;
 
     @Inject
-    public TransactionStatisticsController(MetricsRepository metricsRepository) {
-        this.metricsRepository = metricsRepository;
+    public TransactionStatisticsController(StatisticsRepository statisticsRepository) {
+        this.statisticsRepository = statisticsRepository;
     }
 
     @POST
@@ -27,7 +27,7 @@ public class TransactionStatisticsController {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response postTransaction(@Valid final TransactionRequest transactionRequest) {
-        metricsRepository.registerMetric(transactionRequest.amount, transactionRequest.timestamp);
+        statisticsRepository.registerStatistic(transactionRequest.amount, transactionRequest.timestamp);
         return Response.noContent().build();
     }
 
@@ -35,8 +35,8 @@ public class TransactionStatisticsController {
     @Path("/statistics")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getStatistics() {
-        MetricSet metric = this.metricsRepository.getStatisticsForInterval();
-        StatisticsResponse response = new StatisticsResponse(metric);
+        Statistics statistics = this.statisticsRepository.getStatisticsForInterval();
+        StatisticsResponse response = new StatisticsResponse(statistics);
 
         return Response.ok().entity(response).build();
     }

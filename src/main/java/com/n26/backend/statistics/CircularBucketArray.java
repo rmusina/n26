@@ -1,4 +1,4 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
 import java.util.concurrent.atomic.AtomicReferenceArray;
@@ -12,10 +12,10 @@ class BucketMerger implements BinaryOperator<Bucket> {
             return bucket2;
         }
 
-        MetricSet existingMetrics = bucket.getBucketMetrics();
-        MetricSet cummulativeMetrics = existingMetrics.addMetricSet(bucket2.getBucketMetrics());
+        Statistics existingStatistics = bucket.getBucketStatistics();
+        Statistics cummulativeStatistics = existingStatistics.addStatistics(bucket2.getBucketStatistics());
 
-        return new TimeBasedBucket(bucket.getStartWindow(), cummulativeMetrics);
+        return new TimeBasedBucket(bucket.getStartWindow(), cummulativeStatistics);
     }
 }
 
@@ -34,7 +34,7 @@ public class CircularBucketArray implements BucketArray {
     public Bucket addToBucket(double value, long time) {
         long roundedTime = roundTime(time);
         int targetBucket = (int)roundedTime % bucketCount;
-        Bucket newBucket = new TimeBasedBucket(roundedTime, new ImmutableMetricSet(value));
+        Bucket newBucket = new TimeBasedBucket(roundedTime, new ImmutableStatistics(value));
 
         return this.buckets.accumulateAndGet(targetBucket, newBucket, new BucketMerger());
     }

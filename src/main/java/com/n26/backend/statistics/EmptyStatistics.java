@@ -1,7 +1,7 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
-class EmptyMetricSet implements MetricSet {
+class EmptyStatistics implements Statistics {
 
     @Override
     public double getSum() {
@@ -28,15 +28,15 @@ class EmptyMetricSet implements MetricSet {
         return 0;
     }
 
-    public MetricSet addValue(double value) {
+    public Statistics addValue(double value) {
         return this;
     }
 
-    public MetricSet addMetricSet(MetricSet value) {
+    public Statistics addStatistics(Statistics value) {
         return value;
     }
 
-    public MetricSet reset() {
+    public Statistics reset() {
         return this;
     }
 }

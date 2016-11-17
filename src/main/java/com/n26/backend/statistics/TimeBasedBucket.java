@@ -1,20 +1,20 @@
-package com.n26.backend.metrics;
+package com.n26.backend.statistics;
 
 
 public class TimeBasedBucket implements Bucket {
 
     private long time;
 
-    private MetricSet metricSet;
+    private Statistics statistics;
 
-    public TimeBasedBucket(long time, MetricSet metricSet) {
+    public TimeBasedBucket(long time, Statistics statistics) {
         this.time = time;
-        this.metricSet = metricSet;
+        this.statistics = statistics;
     }
 
     @Override
     public long getStartWindow() {
-        return 0;
+        return this.time;
     }
 
     @Override
@@ -23,7 +23,7 @@ public class TimeBasedBucket implements Bucket {
     }
 
     @Override
-    public MetricSet getBucketMetrics() {
-        return null;
+    public Statistics getBucketStatistics() {
+        return this.statistics;
     }
 }
