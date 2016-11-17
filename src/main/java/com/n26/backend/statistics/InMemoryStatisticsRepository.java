@@ -1,30 +1,27 @@
 package com.n26.backend.statistics;
 
 import com.n26.backend.time.EpochTime;
-import com.n26.backend.time.FixedTimeInterval;
 import com.n26.backend.time.TimeInterval;
-
-import java.time.Instant;
+import com.n26.backend.time.TimeIntervalProvider;
 
 public class InMemoryStatisticsRepository implements StatisticsRepository {
 
-    private int timeInterval;
+    private final TimeIntervalProvider timeIntervalProvider;
+    private final BucketArray bucketArray;
 
-    private BucketArray bucketArray;
-
-    public InMemoryStatisticsRepository() {
-        this.timeInterval = 60;
+    public InMemoryStatisticsRepository(TimeIntervalProvider timeIntervalProvider) {
+        this.timeIntervalProvider = timeIntervalProvider;
         this.bucketArray = new CircularBucketArray(60);
     }
 
     public void registerStatistics(double amount, long timestamp) {
-        this.bucketArray.add(amount, new EpochTime(timestamp), getCurrentTimeInterval());
+        this.bucketArray.add(amount, new EpochTime(timestamp), timeIntervalProvider.get());
     }
 
     public Statistics getStatisticsForInterval() {
         Statistics aggregatedStatistics = new EmptyStatistics();
         StatisticsAggregator aggregator = new ImmutableStatisticsAggregator();
-        TimeInterval currentInterval = getCurrentTimeInterval();
+        TimeInterval currentInterval = timeIntervalProvider.get();
 
         for (int i = 0; i < bucketArray.size(); i++) {
             Bucket currentBucket = bucketArray.get(i);
@@ -35,9 +32,5 @@ public class InMemoryStatisticsRepository implements StatisticsRepository {
         }
 
         return aggregatedStatistics;
-    }
-
-    private TimeInterval getCurrentTimeInterval() {
-        return new FixedTimeInterval(timeInterval, new EpochTime(Instant.now().toEpochMilli()));
     }
 }
