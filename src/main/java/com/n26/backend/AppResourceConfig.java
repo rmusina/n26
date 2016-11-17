@@ -24,7 +24,8 @@ class AppResourceConfig extends ResourceConfig {
         register(GenericExceptionMapper.class);
         register(WebApplicationExceptionMapper.class);
 
-        property(LoggingFeature.LOGGING_FEATURE_VERBOSITY_CLIENT, LoggingFeature.Verbosity.PAYLOAD_ANY);
+        property(LoggingFeature.LOGGING_FEATURE_LOGGER_LEVEL_SERVER, config.logLevel);
+        property(LoggingFeature.LOGGING_FEATURE_VERBOSITY_SERVER, LoggingFeature.Verbosity.PAYLOAD_ANY);
         property(ServerProperties.BV_SEND_ERROR_IN_RESPONSE, true);
 
         packages("com.n26.backend.controllers");

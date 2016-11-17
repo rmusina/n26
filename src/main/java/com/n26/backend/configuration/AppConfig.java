@@ -8,4 +8,7 @@ public class AppConfig {
 
     @JsonProperty("interval_size_seconds")
     public int intervalSizeSeconds;
+
+    @JsonProperty("log_level")
+    public String logLevel;
 }
