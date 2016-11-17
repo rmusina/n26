@@ -1,6 +1,7 @@
 package com.n26.backend;
 
 
+import com.n26.backend.configuration.AppConfig;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerCollection;
@@ -11,9 +12,9 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 class BackendHttpServer {
 
-    void startServer() throws Exception {
+    void startServer(AppConfig config) throws Exception {
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.NO_SESSIONS);
-        ServletContainer jerseyServletContainer = new ServletContainer(new AppResourceConfig());
+        ServletContainer jerseyServletContainer = new ServletContainer(new AppResourceConfig(config));
         ServletHolder jerseyServletHolder = new ServletHolder(jerseyServletContainer);
         servletContextHandler.setContextPath("/");
         servletContextHandler.addServlet(jerseyServletHolder, "/*");
@@ -21,7 +22,7 @@ class BackendHttpServer {
         HandlerCollection handlerList = new HandlerCollection();
         handlerList.setHandlers(new Handler[]{ servletContextHandler });
 
-        Server server = new Server(8082);
+        Server server = new Server(config.port);
         server.setHandler(handlerList);
         server.start();
         server.join();
