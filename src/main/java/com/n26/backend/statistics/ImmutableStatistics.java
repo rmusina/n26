@@ -2,7 +2,7 @@ package com.n26.backend.statistics;
 
 
 class ImmutableStatistics implements Statistics {
-    private final int count;
+    private final long count;
     private final double sum;
     private final double max;
     private final double min;
@@ -14,14 +14,14 @@ class ImmutableStatistics implements Statistics {
         this.min = sum;
     }
 
-    ImmutableStatistics(int count, double sum, double max, double min) {
+    ImmutableStatistics(long count, double sum, double max, double min) {
         this.count = count;
         this.sum = sum;
         this.max = max;
         this.min = min;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 

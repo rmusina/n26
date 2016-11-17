@@ -19,7 +19,7 @@ class EmptyStatistics implements Statistics {
         return Double.POSITIVE_INFINITY;
     }
 
-    public int getCount() {
-        return 0;
+    public long getCount() {
+        return 0L;
     }
 }

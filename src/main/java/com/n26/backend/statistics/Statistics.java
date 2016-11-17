@@ -6,5 +6,5 @@ public interface Statistics {
     double getAvg();
     double getMax();
     double getMin();
-    int getCount();
+    long getCount();
 }

@@ -8,7 +8,7 @@ public class StatisticsResponse {
     public double avg;
     public double max;
     public double min;
-    public int count;
+    public long count;
 
     public StatisticsResponse(Statistics statistics) {
         this.sum = statistics.getSum();
