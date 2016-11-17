@@ -11,11 +11,15 @@ import static org.mockito.Mockito.when;
 
 public class InMemoryStatisticsAggregatorTest {
 
+    private final double EPS = 0.001;
+
+    private final int INTERVAL_SIZE = 60;
+
     @Test
     public void whenAllBucketsAreInTheCurrentTimeIntervalThenTheyAreAllAggregated() {
         TimeIntervalProvider timeIntervalProvider = Mockito.mock(TimeIntervalProvider.class);
-        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(60);
-        when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(60, new EpochTime(91000)));
+        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(INTERVAL_SIZE);
+        when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(INTERVAL_SIZE, new EpochTime(91000)));
         StatisticsRepository repository = new InMemoryStatisticsRepository(timeIntervalProvider);
 
         repository.registerStatistics(100, 60000);
@@ -25,18 +29,18 @@ public class InMemoryStatisticsAggregatorTest {
 
         Statistics statistics = repository.getStatisticsForInterval();
 
-        Assert.assertEquals(190, statistics.getSum(), 0.001);
-        Assert.assertEquals(47.5, statistics.getAvg(), 0.001);
-        Assert.assertEquals(100, statistics.getMax(), 0.001);
-        Assert.assertEquals(10, statistics.getMin(), 0.001);
+        Assert.assertEquals(190, statistics.getSum(), EPS);
+        Assert.assertEquals(47.5, statistics.getAvg(), EPS);
+        Assert.assertEquals(100, statistics.getMax(), EPS);
+        Assert.assertEquals(10, statistics.getMin(), EPS);
         Assert.assertEquals(4, statistics.getCount());
     }
 
     @Test
     public void whenSomeBucketsAreOutsideOfTheCurrentTimeIntervalThenTheyAreIgnored() {
         TimeIntervalProvider timeIntervalProvider = Mockito.mock(TimeIntervalProvider.class);
-        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(60);
-        when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(60, new EpochTime(140000)));
+        when(timeIntervalProvider.getIntervalDurationSeconds()).thenReturn(INTERVAL_SIZE);
+        when(timeIntervalProvider.get()).thenReturn(new FixedTimeInterval(INTERVAL_SIZE, new EpochTime(140000)));
         StatisticsRepository repository = new InMemoryStatisticsRepository(timeIntervalProvider);
 
         repository.registerStatistics(100, 60000);
@@ -46,10 +50,10 @@ public class InMemoryStatisticsAggregatorTest {
 
         Statistics statistics = repository.getStatisticsForInterval();
 
-        Assert.assertEquals(40, statistics.getSum(), 0.001);
-        Assert.assertEquals(20, statistics.getAvg(), 0.001);
-        Assert.assertEquals(30, statistics.getMax(), 0.001);
-        Assert.assertEquals(10, statistics.getMin(), 0.001);
+        Assert.assertEquals(40, statistics.getSum(), EPS);
+        Assert.assertEquals(20, statistics.getAvg(), EPS);
+        Assert.assertEquals(30, statistics.getMax(), EPS);
+        Assert.assertEquals(10, statistics.getMin(), EPS);
         Assert.assertEquals(2, statistics.getCount());
     }
 }

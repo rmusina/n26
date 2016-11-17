@@ -11,6 +11,9 @@ import static org.mockito.Matchers.isA;
 import static org.mockito.Mockito.when;
 
 public class BucketMergerTest {
+
+    private final double eps = 0.001;
+
     @Test
     public void whenAddingAValidBucketOverAnEmptyBucketThenTheNewBucketReplacesTheEmptyOne() {
         FixedTimeInterval timeInterval = Mockito.mock(FixedTimeInterval.class);
@@ -63,9 +66,9 @@ public class BucketMergerTest {
         Bucket result = merger.apply(currentBucket, newBucket);
 
         Statistics resultStatistics = result.getBucketStatistics();
-        Assert.assertEquals(30, resultStatistics.getSum(), 0.01);
-        Assert.assertEquals(15, resultStatistics.getAvg(), 0.01);
-        Assert.assertEquals(20, resultStatistics.getMax(), 0.01);
-        Assert.assertEquals(10, resultStatistics.getMin(), 0.01);
+        Assert.assertEquals(30, resultStatistics.getSum(), eps);
+        Assert.assertEquals(15, resultStatistics.getAvg(), eps);
+        Assert.assertEquals(20, resultStatistics.getMax(), eps);
+        Assert.assertEquals(10, resultStatistics.getMin(), eps);
     }
 }
