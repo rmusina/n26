@@ -6,7 +6,6 @@ import com.n26.backend.time.Time;
 import com.n26.backend.time.TimeInterval;
 
 import java.util.concurrent.atomic.AtomicReferenceArray;
-import java.util.function.BinaryOperator;
 
 
 class CircularBucketArray implements BucketArray {
