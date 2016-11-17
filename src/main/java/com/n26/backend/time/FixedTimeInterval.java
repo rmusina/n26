@@ -2,12 +2,12 @@ package com.n26.backend.time;
 
 public class FixedTimeInterval implements TimeInterval {
 
-    private final long timeInterval;
+    private final long intervalDurationSeconds;
 
     private final Time intervalEndTime;
 
-    public FixedTimeInterval(long timeInterval, Time intervalEndTime) {
-        this.timeInterval = timeInterval;
+    public FixedTimeInterval(long intervalDurationSeconds, Time intervalEndTime) {
+        this.intervalDurationSeconds = intervalDurationSeconds;
         this.intervalEndTime = intervalEndTime;
     }
 
@@ -15,7 +15,7 @@ public class FixedTimeInterval implements TimeInterval {
         long milisecondsEpoch = time.getRoundedSecondsEpoch();
         long endTimeMilisecondsEpoch = intervalEndTime.getRoundedSecondsEpoch();
 
-        return milisecondsEpoch >= endTimeMilisecondsEpoch - timeInterval &&
+        return milisecondsEpoch >= endTimeMilisecondsEpoch - intervalDurationSeconds &&
                milisecondsEpoch <= endTimeMilisecondsEpoch;
     }
 }
